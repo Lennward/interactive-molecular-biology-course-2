@@ -417,9 +417,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div id="bsa-dilution-solution" class="solution-details hidden">
                                 <strong>Detailed Solution:</strong><br>
                                 Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
+                                C<sub>1</sub> (Stock Conc.) = 100%<br>
+                                C<sub>2</sub> (Final Conc.) = 5%<br>
+                                V<sub>2</sub> (Final Vol.) = 1 mL<br>
                                 V<sub>1</sub> (Stock BSA Vol.) = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (5% &times; 1 mL) / 100% = 0.05 mL.<br>
                                 Convert to &mu;L: 0.05 mL &times; 1000 &mu;L/mL = <strong>50 &mu;L of 100% BSA stock</strong>.<br>
-                                Volume of PBS (Diluent) = V<sub>2</sub> - V<sub>1</sub> = 1 mL - 0.05 mL = 0.95 mL = <strong>950 &mu;L of PBS</strong>.
+                                Volume of PBS (Diluent) = V<sub>2</sub> - V<sub>1</sub> = 1 mL - 0.05 mL = 0.95 mL.<br>
+                                Convert to &mu;L: 0.95 mL &times; 1000 &mu;L/mL = <strong>950 &mu;L of PBS</strong>.
                             </div>
                         </div>
 
@@ -441,6 +445,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div id="triton-dilution-solution" class="solution-details hidden">
                                 <strong>Detailed Solution:</strong><br>
                                 Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
+                                C<sub>1</sub> (Stock Conc.) = 10%<br>
+                                C<sub>2</sub> (Final Conc.) = 0.1%<br>
+                                V<sub>2</sub> (Final Vol.) = 10 mL<br>
                                 V<sub>1</sub> (Stock Triton Vol.) = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (0.1% &times; 10 mL) / 10% = 0.1 mL.<br>
                                 Convert to &mu;L: 0.1 mL &times; 1000 &mu;L/mL = <strong>100 &mu;L of 10% Triton X-100 stock</strong>.<br>
                                 Volume of Diluent = V<sub>2</sub> - V<sub>1</sub> = 10 mL - 0.1 mL = <strong>9.9 mL</strong>.
@@ -464,10 +471,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div id="antibody-dilution-feedback" class="practice-feedback text-sm mt-2 hidden"></div>
                             <div id="antibody-dilution-solution" class="solution-details hidden">
                                 <strong>Detailed Solution (for 6 wells exactly):</strong><br>
-                                Total volume needed (V<sub>final</sub>) = 6 wells &times; 200 &mu;L/well = 1200 &mu;L.<br>
-                                Volume of antibody stock (V<sub>stock</sub>) = V<sub>final</sub> / 1000 = 1200 &mu;L / 1000 = <strong>1.2 &mu;L</strong>.<br>
+                                Total volume needed (V<sub>final</sub>) = Number of wells &times; Volume per well = 6 wells &times; 200 &mu;L/well = 1200 &mu;L.<br>
+                                Dilution factor = 1000.<br>
+                                Volume of antibody stock (V<sub>stock</sub>) = V<sub>final</sub> / Dilution factor = 1200 &mu;L / 1000 = <strong>1.2 &mu;L</strong>.<br>
                                 Volume of buffer = V<sub>final</sub> - V<sub>stock</sub> = 1200 &mu;L - 1.2 &mu;L = <strong>1198.8 &mu;L</strong>.<br>
-                                <em>(Note: In practice, you'd prepare a bit extra.)</em>
+                                <em>(Note: In practice, you'd prepare a bit extra, e.g., for 6.5 or 7 wells, to account for pipetting inaccuracies.)</em>
                             </div>
                         </div>
 
@@ -484,7 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div id="cell-plating-feedback" class="practice-feedback text-sm mt-2 hidden"></div>
                             <div id="cell-plating-solution" class="solution-details hidden">
                                 <strong>Detailed Solution:</strong><br>
-                                Volume needed = (Desired cells) / (Stock concentration) = (2 &times; 10<sup>5</sup> cells) / (1 &times; 10<sup>6</sup> cells/mL) = 0.2 mL.<br>
+                                Desired cells per well = 2 &times; 10<sup>5</sup> cells.<br>
+                                Stock concentration = 1 &times; 10<sup>6</sup> cells/mL.<br>
+                                Volume needed per well = (Desired cells per well) / (Stock concentration)<br>
+                                Volume = (2 &times; 10<sup>5</sup> cells) / (1 &times; 10<sup>6</sup> cells/mL) = 0.2 mL.<br>
                                 Convert to &mu;L: 0.2 mL &times; 1000 &mu;L/mL = <strong>200 &mu;L per well</strong>.
                             </div>
                         </div>
@@ -635,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <li>
                                     <strong>Add Plasmid DNA:</strong> Add <strong>0.3 - 0.5 µg</strong> of your desired plasmid (pH2B-GFP or pRKV-FLAG) to the CaCl₂.
                                     <div class="p-2 mt-1 bg-amber-50 border-l-4 border-amber-400 text-amber-700 text-xs rounded-r-md">
-                                        <p><strong>Attention, Pipetting Pros!</strong> Pipetting volumes less than 2 µL is highly inaccurate. If your calculated volume is too small, consider preparing a master mix for several wells or groups.</p>
+                                        <p><strong>Attention, Pipetting Pros!</strong> Pipetting volumes less than 2 µL is highly inaccurate. If your calculated volume is too small, consider preparing a master mix. For example, if you need 0.5 µL per well and are doing 4 wells, prepare a mix for 4.4 wells (4 wells + 10% extra), so 0.5 µL/well * 4.4 wells = 2.2 µL plasmid in a larger volume of CaCl₂.</p>
                                         <p class="mt-1"><strong>Storage & Handling:</strong> Plasmids are stored in the freezer. Always keep plasmids on ice when outside the freezer.</p>
                                     </div>
                                 </li>
@@ -675,10 +686,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <strong>The Magic Ingredient:</strong> Slowly, while gently vortexing or flicking the tube containing the CaCl₂-DNA mixture, add <strong>25 µL of 2x BBS</strong>. *Critical: Add BBS to DNA/CaCl₂, not the other way around for optimal precipitate formation.*
                         </li>
                         <li>
-                            <strong>Mix Gently:</strong> Immediately after adding BBS, cap the tube and gently invert it 4-5 times to mix. **DO NOT VORTEX** at this stage.
+                            <strong>Mix Gently:</strong> Immediately after adding BBS, cap the tube and gently invert it 4-5 times to mix. **DO NOT VORTEX** at this stage, as it can shear the DNA or lead to suboptimal precipitate size.
                         </li>
                         <li>
                             <strong>Patience Test (Precipitate Formation):</strong> Incubate the mixture for <strong>15 minutes at room temperature (RT)</strong>.
+                             <div class="text-xs p-2 mt-1 bg-orange-50 border-l-4 border-orange-400 text-orange-700 rounded-r-md">
+                                <em>Note on Centrifugation: Some older protocols mention a brief centrifugation. This step is not typical for modern CaPi protocols as it might compact the precipitate too much. We will proceed without centrifugation.</em>
+                            </div>
                         </li>
                         <li>
                             <strong>"Feed" the Cells:</strong> After the 15-minute incubation, gently resuspend the fine precipitate and add <strong>50 µL of this suspension dropwise</strong> onto the cells in one well of a 24-well plate.
@@ -711,6 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><strong>Cell Confluency:</strong> Aim for 50-70% confluency for optimal results.</li>
                         <li><strong>DNA Quality & Quantity:</strong> Use high-purity, endotoxin-free DNA.</li>
                         <li><strong>pH of BBS:</strong> This is CRITICAL. A pH between 7.05 and 7.12 is required for proper precipitate formation.</li>
+                        <li><strong>Pipetting Skills & Sterility:</strong> Accuracy and strict aseptic technique are paramount.</li>
                     </ul>
                     <div class="interactive-box">
                         <h4>Interactive Box 4: What Went Wrong? – Transfection Troubleshooting</h4>
@@ -757,13 +772,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const methodQuizData = {
                         options: ["Lipofection (e.g., Lipofectamine)", "Electroporation", "Calcium Phosphate Precipitation", "Viral Transduction (e.g., with lentiviruses)"],
                         answer: "Calcium Phosphate Precipitation",
-                        feedback_correct: "Exactly! The calcium phosphate method is an established, cost-effective method well-suited for transfecting adherent cells like HEK293.",
-                        feedback_incorrect: "Not quite. While other methods are effective, CaPi is a great balance of cost and efficiency for this specific purpose."
+                        feedback_correct: "Exactly! The calcium phosphate method is an established, cost-effective method well-suited for transfecting adherent cells like HEK293 and is ideal for our course objectives.",
+                        feedback_incorrect: "Not quite. While other methods work, CaPi is a great balance of cost and efficiency for this specific purpose. Viral methods are more complex and costly, and Lipofection is often more expensive."
                     };
                     methodQuizData.options.forEach(optText => {
                         const btn = document.createElement('button');
                         btn.className = 'quiz-option text-xs sm:text-sm';
                         btn.textContent = optText;
+                        btn.dataset.correct = (optText === methodQuizData.answer).toString();
                         btn.addEventListener('click', () => handleSimpleQuiz(btn, optText === methodQuizData.answer, methodQuizData.feedback_correct, methodQuizData.feedback_incorrect));
                         methodChoiceContainer.appendChild(btn);
                     });
@@ -942,7 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             button.classList.add('incorrect');
             feedbackEl.innerHTML = incorrectFeedback;
-            const correctButton = parentDiv.querySelector('[data-correct="true"]') || parentDiv.querySelector('.correct');
+            const correctButton = parentDiv.querySelector('[data-correct="true"]');
             if (correctButton) correctButton.classList.add('correct');
         }
         feedbackEl.classList.remove('hidden');
@@ -965,12 +981,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     const isCorrect = btn.textContent === q.answer;
                     const correctFeedback = `<strong>Correct!</strong> ${q.explanation}`;
                     const incorrectFeedback = `<strong>Incorrect.</strong> ${q.explanation}`;
-                    handleSimpleQuiz(btn, isCorrect, correctFeedback, incorrectFeedback);
-                     if (!isCorrect) {
-                        qDiv.querySelectorAll('.quiz-option').forEach(opt => {
-                            if (opt.textContent === q.answer) opt.classList.add('correct');
+                    // Use a modified handler to show the correct answer on wrong choice
+                    const parentDiv = btn.parentElement;
+                    const feedbackEl = parentDiv.nextElementSibling;
+                    parentDiv.querySelectorAll('.quiz-option').forEach(b => {
+                        b.disabled = true;
+                        b.classList.remove('correct', 'incorrect');
+                    });
+                    if (isCorrect) {
+                        btn.classList.add('correct');
+                        feedbackEl.innerHTML = correctFeedback;
+                    } else {
+                        btn.classList.add('incorrect');
+                        feedbackEl.innerHTML = incorrectFeedback;
+                        parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                             if (opt.textContent === q.answer) opt.classList.add('correct');
                         });
                     }
+                    feedbackEl.classList.remove('hidden');
                 });
             });
             container.appendChild(qDiv);
