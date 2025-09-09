@@ -1039,7 +1039,3 @@ document.addEventListener('DOMContentLoaded', () => {
     welcomeMessage.style.display = 'block';
 
 });
-What is wrong with the CSS code?
-
-}
-There is nothing wrong with my files. Please check again.
