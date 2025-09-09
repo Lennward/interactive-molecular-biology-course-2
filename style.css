@@ -1,4 +1,22 @@
 /* --- General Body & Layout --- */
+/* --- New Color Variables --- */
+:root {
+  --purple-dark: #352253;
+  --purple-medium: #85279E;
+  --purple-light: #D42BE9;
+  --purple-accent: #F64BCC;
+  
+  --orange-dark: #E54A42;
+  --orange-medium: #FB8825;
+  --orange-light: #FDAC13;
+  --orange-accent: #FFD000;
+  
+  --text-primary: #374151; /* Keeping a dark gray for body text for readability */
+  --text-secondary: #fff;
+  --background-light: #f9fafb;
+  --border-light: #e5e7eb;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -26,8 +44,8 @@ body {
 }
 
 .sidebar-link:hover, .sidebar-link.active {
-    background-color: #4a5568; /* gray-700 */
-    color: #facc15; /* yellow-400 */
+    background-color: var(--purple-medium);
+    color: var(--orange-accent);
     transform: translateX(5px);
 }
 
@@ -35,16 +53,16 @@ body {
 .module-content h2 {
     font-size: 1.75rem;
     font-weight: 600;
-    color: #1e3a8a; /* blue-800 */
+    color: var(--purple-dark);
     margin-bottom: 1rem;
-    border-bottom: 2px solid #3b82f6; /* blue-500 */
+    border-bottom: 2px solid var(--purple-medium);
     padding-bottom: 0.5rem;
 }
 
 .module-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1d4ed8; /* blue-700 */
+    color: var(--purple-medium);
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
@@ -52,20 +70,20 @@ body {
 .module-content > h4, .module-content .styled-h4 {
     font-size: 1.15rem;
     font-weight: 600;
-    color: #1e40af;
-    background-color: rgba(219, 234, 254, 0.6);
+    color: var(--purple-dark);
+    background-color: rgba(212, 43, 233, 0.1); /* D42BE9 with alpha */
     padding: 0.4rem 0.8rem;
     border-radius: 0.375rem;
     display: inline-block;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    border-left: 3px solid #3b82f6;
+    border-left: 3px solid var(--purple-light);
 }
 
 .module-content p, .module-content ul, .module-content ol, .module-content table {
     margin-bottom: 1rem;
     line-height: 1.6;
-    color: #374151;
+    color: var(--text-primary);
 }
 
 .module-content ul, .module-content ol {
@@ -79,11 +97,11 @@ body {
 .module-content .formula {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1em;
-    color: #1e40af;
-    background-color: #f0f9ff;
+    color: var(--purple-dark);
+    background-color: #f0f4ff; /* A light, neutral background */
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
-    border: 1px solid #e0f2fe;
+    border: 1px solid var(--purple-light);
     display: inline-block;
     margin-top: 0.25rem;
     margin-bottom: 0.75rem;
@@ -91,8 +109,8 @@ body {
 
 /* --- Interactive Boxes & Practice Problems --- */
 .interactive-box, .practice-problem-box {
-    background-color: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background-color: rgba(246, 75, 204, 0.1); /* F64BCC with alpha */
+    border: 1px solid var(--purple-light);
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-top: 1.5rem;
@@ -102,7 +120,7 @@ body {
 .interactive-box h4, .practice-problem-box h4 {
     font-size: 1.1rem !important;
     font-weight: 600 !important;
-    color: #1e40af !important;
+    color: var(--purple-dark) !important;
     background-color: transparent !important;
     padding: 0 !important;
     border-radius: 0 !important;
@@ -114,8 +132,8 @@ body {
 
 /* --- Quiz Styling --- */
 .quiz-question {
-    background-color: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-light);
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
@@ -125,7 +143,7 @@ body {
     display: block;
     width: 100%;
     background-color: #fff;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--border-light);
     border-radius: 0.375rem;
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
@@ -135,20 +153,20 @@ body {
 }
 
 .quiz-option:hover {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: var(--orange-medium);
+    background-color: rgba(255, 208, 0, 0.1); /* FFD000 with alpha */
 }
 
 .quiz-option.correct, .practice-problem-box .correct-answer {
-    background-color: #d1fae5 !important;
-    border-color: #10b981 !important;
-    color: #065f46 !important;
+    background-color: rgba(253, 172, 19, 0.2) !important; /* FDAC13 with alpha */
+    border-color: var(--orange-medium) !important;
+    color: var(--orange-dark) !important;
 }
 
 .quiz-option.incorrect, .practice-problem-box .incorrect-answer {
-    background-color: #fee2e2 !important;
-    border-color: #ef4444 !important;
-    color: #991b1b !important;
+    background-color: rgba(229, 74, 66, 0.2) !important; /* E54A42 with alpha */
+    border-color: var(--orange-dark) !important;
+    color: var(--orange-dark) !important;
 }
 
 .feedback-message, .practice-feedback {
@@ -158,7 +176,7 @@ body {
 
 /* --- Calculator & Input Styling --- */
 .calculator input, .calculator select, .practice-problem-box input {
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--border-light);
     border-radius: 0.375rem;
     padding: 0.5rem 0.75rem;
     margin-right: 0.5rem;
@@ -167,8 +185,8 @@ body {
 }
 
 .calculator button, .practice-problem-box button {
-    background-color: #3b82f6;
-    color: white;
+    background-color: var(--orange-medium);
+    color: var(--text-secondary);
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
     transition: background-color 0.2s ease;
@@ -177,15 +195,15 @@ body {
 }
 
 .calculator button:hover, .practice-problem-box button:hover {
-    background-color: #2563eb;
+    background-color: var(--orange-dark);
 }
 
 /* --- Helper Component Styling --- */
 .solution-details {
     font-size: 0.9rem;
-    color: #4b5563;
-    background-color: #f9fafb;
-    border-left: 3px solid #3b82f6;
+    color: var(--text-primary);
+    background-color: var(--background-light);
+    border-left: 3px solid var(--orange-medium);
     padding: 0.75rem;
     margin-top: 0.75rem;
     border-radius: 0.25rem;
@@ -199,23 +217,23 @@ body {
 }
 
 .media-component-button {
-    background-color: #93c5fd;
-    border: 1px solid #60a5fa;
+    background-color: var(--purple-light);
+    border: 1px solid var(--purple-medium);
 }
 
 .media-component-button:hover {
-    background-color: #60a5fa;
+    background-color: var(--purple-medium);
 }
 
 .media-component-button.selected {
-    background-color: #3b82f6;
-    color: white;
+    background-color: var(--purple-dark);
+    color: var(--text-secondary);
     font-weight: bold;
 }
 
 .highlight-note {
-    background-color: #fef9c3; /* Tailwind yellow-100 */
-    border-left: 4px solid #facc15; /* Tailwind yellow-400 */
+    background-color: rgba(255, 208, 0, 0.1); /* FFD000 with alpha */
+    border-left: 4px solid var(--orange-accent);
     padding: 0.75rem 1rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -227,8 +245,8 @@ body {
 }
 
 .goal-box {
-    background-color: #e0f2fe; /* Tailwind sky-100 */
-    border: 1px solid #7dd3fc; /* Tailwind sky-300 */
+    background-color: rgba(212, 43, 233, 0.1); /* D42BE9 with alpha */
+    border: 1px solid var(--purple-light);
     border-radius: 0.5rem;
     padding: 1rem;
     display: flex;
@@ -246,7 +264,7 @@ body {
 }
 
 .goal-box strong {
-    color: #0c4a6e; /* Tailwind sky-800 */
+    color: var(--purple-dark);
     font-size: 1.05em;
     margin-bottom: 0.5rem;
 }
