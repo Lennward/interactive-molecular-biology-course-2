@@ -1,11 +1,5 @@
 /*
  * Cell & Protein Analytics Interactive Course - Main Script
- *
- * This script handles all the dynamic content loading, interactivity,
- * and calculations for the course. It follows modern JavaScript practices:
- * - Code is wrapped in a DOMContentLoaded listener to ensure the HTML is ready.
- * - All functions and variables are scoped to this listener, avoiding global pollution.
- * - Event handling is done via .addEventListener() instead of inline onclick attributes.
  */
 
 // Wait for the entire HTML document to be loaded and parsed before running any script.
@@ -13,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // =================================================================================
     // SECTION 1: DATA STORE
-    // All module content, quiz data, and initialization logic is stored here.
     // =================================================================================
 
     const modulesData = [
@@ -245,16 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                     btn.classList.remove('correct', 'incorrect');
                                 });
                                 const feedbackEl = parentQuestionDiv.querySelector('.feedback-message');
-                                feedbackEl.classList.remove('hidden');
-
+                                
                                 if (optButton.textContent === q.answer) {
                                     optButton.classList.add('correct');
                                     feedbackEl.innerHTML = '<strong>Correct!</strong>';
-                                    feedbackEl.classList.add('bg-purple-200', 'text-purple-800');
                                 } else {
                                     optButton.classList.add('incorrect');
                                     feedbackEl.innerHTML = `<strong>Incorrect.</strong> Correct answer: ${q.answer}`;
-                                    feedbackEl.classList.add('bg-red-600', 'text-white');
                                     parentQuestionDiv.querySelectorAll('.quiz-option').forEach(btn => {
                                         if (btn.textContent === q.answer) btn.classList.add('correct');
                                     });
@@ -293,9 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="flex flex-wrap items-center gap-2">
                             <label for="ml-input" class="sr-only">Milliliters:</label>
                             <input type="number" id="ml-input" placeholder="Enter mL" class="border p-2 rounded w-32 text-sm">
-                            <button id="unit-convert-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm">Convert to &mu;L</button>
+                            <button id="unit-convert-btn" class="text-sm">Convert to &mu;L</button>
                         </div>
-                        <p id="ul-output" class="mt-2 text-sm font-medium text-blue-700"></p>
+                        <p id="ul-output" class="mt-2 text-sm font-medium text-purple-700"></p>
                     </div>
 
                     <h3>The Dilution Formula: <span class="formula">C<sub>1</sub> &times; V<sub>1</sub> = C<sub>2</sub> &times; V<sub>2</sub></span></h3>
@@ -306,6 +296,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><strong>C<sub>2</sub></strong> = Final concentration (the desired concentration of your diluted solution)</li>
                         <li><strong>V<sub>2</sub></strong> = Final volume (the total volume of your desired diluted solution)</li>
                     </ul>
+                    <p class="mt-2"><strong>Example:</strong> You need to prepare 10 mL of a 0.1 mg/mL solution from a 1 mg/mL stock solution.</p>
+                    <ul class="text-sm">
+                        <li>C<sub>1</sub> = 1 mg/mL (stock concentration)</li>
+                        <li>C<sub>2</sub> = 0.1 mg/mL (desired final concentration)</li>
+                        <li>V<sub>2</sub> = 10 mL (desired final volume)</li>
+                    </ul>
+                    <p>We need to find V<sub>1</sub> (the volume of stock to use).</p>
+                    <p>Rearranging the formula: <span class="formula">V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub></span></p>
+                    <p><span class="formula">V<sub>1</sub> = (0.1 mg/mL &times; 10 mL) / 1 mg/mL = 1 mL</span></p>
+                    <p><strong>Conclusion:</strong> You would take 1 mL of the 1 mg/mL stock solution and add 9 mL of diluent (e.g., water or buffer) to make a total final volume of 10 mL with a concentration of 0.1 mg/mL.</p>
                     
                     <div class="interactive-box">
                         <h4>Interactive: Dilution Calculator</h4>
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <div id="dilution-result-container" class="mt-3 p-3 bg-white rounded-md shadow hidden">
-                            <p id="dilution-result" class="font-semibold text-blue-700"></p>
+                            <p id="dilution-result" class="font-semibold text-purple-700"></p>
                             <p id="dilution-steps" class="mt-1 text-sm text-gray-600"></p>
                         </div>
                     </div>
@@ -361,17 +361,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>Cell Counting with a Hemocytometer (Neubauer Chamber)</h3>
                     <p>A hemocytometer is a specialized counting chamber slide used to determine the concentration of cells in a liquid sample.</p>
                     <img src="Neubauer-chamber-counting example.jpg" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto">
-                    <p><strong>General Procedure & Calculation:</strong></p>
+                    <p class="text-xs text-center text-gray-500 -mt-2 mb-4">Example of cell counting in one square of a Neubauer grid. Green checks indicate cells to count; red X's indicate cells not to count based on a common counting rule (e.g., count cells on top and left lines, exclude bottom and right).</p>
+                    
+                    <p><strong>General Procedure:</strong></p>
                     <ol class="list-decimal list-inside bg-slate-100 p-3 rounded-md shadow-sm">
                         <li>Clean the hemocytometer and coverslip.</li>
                         <li>Mix your cell suspension thoroughly. Often, cells are mixed 1:1 with Trypan Blue stain (e.g., 10 &mu;L cells + 10 &mu;L Trypan Blue). Trypan Blue stains dead cells blue, allowing for viability assessment. This creates a <strong>dilution factor of 2</strong>.</li>
                         <li>Carefully load about 10 &mu;L of the cell suspension/Trypan Blue mixture into one side of the hemocytometer chamber. Avoid overfilling.</li>
                         <li>Under a microscope (typically at 10x objective), focus on the grid lines.</li>
-                        <li>Count the cells in the 4 large corner squares. Establish a consistent counting rule.</li>
-                        <li>The volume of one large square is 10<sup>-4</sup> mL.</li>
+                        <li>Count the cells in the 4 large corner squares (each 1mm &times; 1mm, subdivided into 16 smaller squares). For consistency, establish a counting rule (e.g., count cells touching the top and left lines, but not the bottom and right lines).</li>
+                        <li>The volume of one large square (1mm x 1mm) with a standard coverslip depth of 0.1mm is 1mm &times; 1mm &times; 0.1mm = 0.1 mm<sup>3</sup> = 0.1 &mu;L = 1 x 10<sup>-4</sup> mL.</li>
                     </ol>
-                    <p class="mt-4"><strong>Calculation Formula:</strong></p>
+                    
+                    <p><strong>Calculation:</strong></p>
                     <p><span class="formula">Cells/mL = (Average cells per large square) &times; Dilution Factor &times; 10<sup>4</sup></span></p>
+                    <p>Where 10<sup>4</sup> is the conversion factor (since each large square is 10<sup>-4</sup> mL).</p>
                     
                     <div class="interactive-box">
                         <h4>Interactive: Cell Count Calculator</h4>
@@ -386,17 +390,18 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <input type="number" id="dilution-factor" value="2" class="w-full mt-1">
                             </div>
                             <div class="sm:col-span-2 mt-2">
-                                <button id="cell-density-btn" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm w-full">Calculate Cell Density (cells/mL)</button>
+                                <button id="cell-density-btn" class="text-sm w-full">Calculate Cell Density (cells/mL)</button>
                             </div>
                         </div>
                         <p id="cell-density-output" class="mt-3 font-semibold text-green-700"></p>
                     </div>
                     
                     <h3>Practice Problems</h3>
+                    <p>Test your understanding with these common lab scenarios. Enter your answers and click "Check Answer".</p>
                     <div id="practice-problems-container" class="space-y-6">
                         <div class="practice-problem-box">
                             <p class="font-semibold">1. BSA Dilution:</p>
-                            <p>You need to prepare 1 mL of 5% BSA solution in PBS from a 100% (w/v) BSA stock. How much stock BSA and PBS do you need?</p>
+                            <p>You need to prepare 1 mL of 5% BSA (Bovine Serum Albumin) solution in PBS from a 100% (w/v) BSA stock. How much stock BSA and PBS do you need?</p>
                             <div class="mt-2 space-y-2 sm:space-y-0 sm:flex sm:items-end sm:gap-3">
                                 <div>
                                     <label for="bsa-stock-input" class="block text-xs font-medium text-gray-600">Stock BSA (&mu;L):</label>
@@ -410,9 +415,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div id="bsa-dilution-feedback" class="practice-feedback text-sm mt-2 hidden"></div>
                             <div id="bsa-dilution-solution" class="solution-details hidden">
-                                <strong>Detailed Solution:</strong><br>Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
-                                V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (5% &times; 1 mL) / 100% = 0.05 mL = <strong>50 &mu;L of 100% BSA stock</strong>.<br>
-                                Volume of PBS = V<sub>2</sub> - V<sub>1</sub> = 1 mL - 0.05 mL = 0.95 mL = <strong>950 &mu;L of PBS</strong>.
+                                <strong>Detailed Solution:</strong><br>
+                                Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
+                                V<sub>1</sub> (Stock BSA Vol.) = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (5% &times; 1 mL) / 100% = 0.05 mL.<br>
+                                Convert to &mu;L: 0.05 mL &times; 1000 &mu;L/mL = <strong>50 &mu;L of 100% BSA stock</strong>.<br>
+                                Volume of PBS (Diluent) = V<sub>2</sub> - V<sub>1</sub> = 1 mL - 0.05 mL = 0.95 mL = <strong>950 &mu;L of PBS</strong>.
                             </div>
                         </div>
 
@@ -432,8 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div id="triton-dilution-feedback" class="practice-feedback text-sm mt-2 hidden"></div>
                             <div id="triton-dilution-solution" class="solution-details hidden">
-                                <strong>Detailed Solution:</strong><br>Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
-                                V<sub>1</sub> = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (0.1% &times; 10 mL) / 10% = 0.1 mL = <strong>100 &mu;L of 10% Triton X-100 stock</strong>.<br>
+                                <strong>Detailed Solution:</strong><br>
+                                Using C<sub>1</sub>V<sub>1</sub> = C<sub>2</sub>V<sub>2</sub>:<br>
+                                V<sub>1</sub> (Stock Triton Vol.) = (C<sub>2</sub> &times; V<sub>2</sub>) / C<sub>1</sub> = (0.1% &times; 10 mL) / 10% = 0.1 mL.<br>
+                                Convert to &mu;L: 0.1 mL &times; 1000 &mu;L/mL = <strong>100 &mu;L of 10% Triton X-100 stock</strong>.<br>
                                 Volume of Diluent = V<sub>2</sub> - V<sub>1</sub> = 10 mL - 0.1 mL = <strong>9.9 mL</strong>.
                             </div>
                         </div>
@@ -455,9 +464,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div id="antibody-dilution-feedback" class="practice-feedback text-sm mt-2 hidden"></div>
                             <div id="antibody-dilution-solution" class="solution-details hidden">
                                 <strong>Detailed Solution (for 6 wells exactly):</strong><br>
-                                Total volume needed = 6 wells &times; 200 &mu;L/well = 1200 &mu;L.<br>
-                                Volume of antibody stock = 1200 &mu;L / 1000 = <strong>1.2 &mu;L</strong>.<br>
-                                Volume of buffer = 1200 &mu;L - 1.2 &mu;L = <strong>1198.8 &mu;L</strong>.<br>
+                                Total volume needed (V<sub>final</sub>) = 6 wells &times; 200 &mu;L/well = 1200 &mu;L.<br>
+                                Volume of antibody stock (V<sub>stock</sub>) = V<sub>final</sub> / 1000 = 1200 &mu;L / 1000 = <strong>1.2 &mu;L</strong>.<br>
+                                Volume of buffer = V<sub>final</sub> - V<sub>stock</sub> = 1200 &mu;L - 1.2 &mu;L = <strong>1198.8 &mu;L</strong>.<br>
                                 <em>(Note: In practice, you'd prepare a bit extra.)</em>
                             </div>
                         </div>
@@ -506,12 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ],
             init: () => {
-                // Attach event listeners for Module 2 interactive elements
                 document.getElementById('unit-convert-btn')?.addEventListener('click', convertUnits);
                 document.getElementById('dilution-calc-btn')?.addEventListener('click', calculateDilution);
                 document.getElementById('cell-density-btn')?.addEventListener('click', calculateCellDensity);
-
-                // Attach listeners for practice problems
                 document.getElementById('check-bsa-btn')?.addEventListener('click', () => checkPracticeAnswer('bsa-dilution', [50, 950], ['bsa-stock-input', 'pbs-input']));
                 document.getElementById('check-triton-btn')?.addEventListener('click', () => checkPracticeAnswer('triton-dilution', [100, 9.9], ['triton-stock-input', 'triton-diluent-input']));
                 document.getElementById('check-antibody-btn')?.addEventListener('click', () => checkPracticeAnswer('antibody-dilution', [1.2, 1198.8], ['antibody-stock-input', 'antibody-buffer-input']));
@@ -543,7 +549,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>What is Transfection?</strong><br>
                     Transfection is a powerful biotechnological process used to introduce foreign nucleic acids – most commonly plasmid DNA – into eukaryotic cells. This allows scientists to manipulate the genetic makeup of cells in a controlled manner.</p>
                     
-                    <p><strong>Goals of Transfection:</strong></p>
+                    <p><strong>Goals of Transfection:</strong><br>
+                    The primary goals include:</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
                         <div class="goal-box"><strong>Gene Expression</strong><p class="text-sm">Introducing a gene to produce a specific protein (e.g., a fluorescent marker like GFP, or a therapeutic protein).</p></div>
                         <div class="goal-box"><strong>Gene Silencing/Knockdown</strong><p class="text-sm">Introducing constructs (like siRNA or shRNA) to reduce or eliminate the expression of a specific endogenous gene.</p></div>
@@ -551,20 +558,38 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="goal-box"><strong>Protein Production</strong><p class="text-sm">Using cells as factories to produce large quantities of a desired protein.</p></div>
                     </div>
                     
-                    <p><strong>Transient vs. Stable Transfection:</strong></p>
+
+                    <p><strong>Transient vs. Stable Transfection:</strong><br>
+                    Transfection can be either transient or stable:
                     <ul class="list-disc list-inside ml-4">
                         <li><strong>Transient Transfection:</strong> The introduced nucleic acid (e.g., plasmid) enters the cell and is expressed for a limited period (typically 24-96 hours). It is not integrated into the host cell's genome and is eventually lost or diluted out as cells divide. This is useful for rapid gene expression studies.</li>
                         <li><strong>Stable Transfection:</strong> The introduced nucleic acid is integrated into the host cell's genome. This results in long-term, stable expression of the gene, which is passed on to daughter cells during cell division. Creating stable cell lines requires selection methods (e.g., using antibiotic resistance markers).</li>
                     </ul>
-                    
+                    </p>
+                    <img src="placeholder_transfection_overview.svg" alt="Schematic of plasmid DNA entering a cell and leading to protein expression" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-lg w-auto bg-gray-200 p-4" onerror="this.onerror=null; this.src='https://placehold.co/500x300/e2e8f0/4a5568?text=Placeholder:+Transfection+Overview'; this.alt='Placeholder: Transfection Overview';">
+
                     <h4 class="styled-h4">B. Overview of Transfection Methods</h4>
-                    <p>There are numerous ways to get nucleic acids into cells, broadly categorized as:</p>
+                    <p><strong>The Variety of Methods:</strong><br>
+                    There are numerous ways to get nucleic acids into cells, broadly categorized as:
                     <ul class="list-disc list-inside ml-4">
-                        <li><strong>Chemical Methods:</strong> Using reagents like Calcium Phosphate, Lipids (Lipofection), or Cationic Polymers.</li>
-                        <li><strong>Physical Methods:</strong> Using physical force, such as Electroporation or Microinjection.</li>
-                        <li><strong>Viral Methods (Transduction):</strong> Using viruses as vectors to deliver genetic material.</li>
+                        <li><strong>Chemical Methods:</strong> These involve using reagents that complex with DNA and facilitate its entry into cells. Examples include:
+                            <ul class="list-circle list-inside ml-4">
+                                <li><strong>Calcium Phosphate Precipitation:</strong> The method we'll use! DNA is mixed with calcium chloride and phosphate buffer, forming fine DNA-calcium phosphate co-precipitates that are taken up by cells via endocytosis. It's cost-effective and works well for many adherent cell lines like HEK293.</li>
+                                <li><strong>Lipid-based (Lipofection):</strong> Cationic lipids form complexes (lipoplexes) with negatively charged DNA, which then fuse with the cell membrane or are endocytosed. Reagents like Lipofectamine™ are common.</li>
+                                <li><strong>Cationic Polymers:</strong> Polymers like Polyethylenimine (PEI) or dendrimers bind DNA and form polyplexes, which are then endocytosed.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Physical Methods:</strong> These use physical force to create transient pores in the cell membrane.
+                            <ul class="list-circle list-inside ml-4">
+                                <li><strong>Electroporation:</strong> Cells are exposed to a brief electrical pulse, creating temporary pores for DNA entry. Very efficient for many cell types, including those hard to transfect by chemical means.</li>
+                                <li><strong>Microinjection:</strong> DNA is directly injected into the cytoplasm or nucleus using a fine glass micropipette. Precise but low-throughput.</li>
+                                <li><strong>Gene Gun (Biolistics):</strong> DNA-coated gold or tungsten particles are shot into cells or tissues.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Viral Methods (Transduction):</strong> Recombinant viruses (e.g., lentiviruses, adenoviruses, AAV) are used as vectors to deliver genetic material. Often very high efficiency, even in primary cells and in vivo, and can be used for stable integration.</li>
                     </ul>
-                    <p>In this course, we will focus on the <strong>Calcium Phosphate Precipitation</strong> method.</p>
+                    In this course, we will focus on the <strong>Calcium Phosphate Precipitation</strong> method due to its effectiveness with HEK293 cells and its historical significance.
+                    </p>
                     <div class="interactive-box">
                         <h4>Interactive Box 1: The Agony of Choice: Which Method for Which Purpose?</h4>
                         <p class="text-sm mb-2">Scenario: Imagine you want to express proteins quickly and cost-effectively in robust HEK293 cells. Which of the following methods would be most suitable for this project and our course?</p>
@@ -573,27 +598,69 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
 
                     <h4 class="styled-h4">C. In Detail: Calcium Phosphate Transfection</h4>
-                    <p><strong>The Principle:</strong> Negatively charged plasmid DNA is mixed with calcium chloride (CaCl₂). When a phosphate-buffered solution (2x BBS) is added, insoluble calcium phosphate-DNA co-precipitates form. Cells naturally take up these particles through endocytosis.</p>
-                    
+                    <p><strong>The Principle – Magic with Calcium and Phosphate:</strong><br>
+                    The calcium phosphate method relies on a simple chemical trick. Negatively charged plasmid DNA is mixed with calcium chloride (CaCl₂). When a phosphate-buffered saline solution (like 2x BBS - HEPES Buffered Saline) is added, insoluble calcium phosphate-DNA co-precipitates form. These fine, crystalline particles settle onto adherent cells. Cells naturally take up these particles through endocytosis (a process where the cell membrane engulfs external material). Once inside the cell, some of the DNA escapes the endosomes, makes its way to the nucleus, and can then be transcribed and translated by the cell's machinery to produce the desired protein (e.g., GFP or your FLAG-tagged protein).</p>
+
+                    <p><strong>Our Tools and Ingredients:</strong>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>Cells:</strong> HEK293 cells (Human Embryonic Kidney cells, adherent).</li>
+                        <li><strong>Plasmids:</strong>
+                            <ul class="list-circle list-inside ml-4">
+                                <li>pH2B-GFP (Concentration: e.g., 682.3 ng/µL - *please use the actual concentration from your stock tube label*)</li>
+                                <li>pRKV-FLAG (Concentration: 1015 ng/µL - *please use the actual concentration from your stock tube label*)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Main Reagents:</strong>
+                            <ul class="list-circle list-inside ml-4">
+                                <li>0.25 M CaCl₂ solution</li>
+                                <li>2x BBS (Buffered Saline Solution, typically HEPES-buffered, pH is critical, usually around 7.05-7.12)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </p>
+                    <img src="placeholder_calcium_phosphate_mechanism.svg" alt="Schematic of calcium phosphate transfection mechanism" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-lg w-auto bg-gray-200 p-4" onerror="this.onerror=null; this.src='https://placehold.co/500x300/e2e8f0/4a5568?text=Placeholder:+CaPi+Mechanism'; this.alt='Placeholder: CaPi Mechanism';">
+
                     <h4 class="styled-h4">The Protocol – Step by Step to Success:</h4>
-                    <p class="text-sm italic">The following protocol is for transfecting <strong>one well</strong> of a 24-well plate.</p>
-                    <div class="highlight-note"><p><strong>Crucial Reminder:</strong> Always prepare all solutions for the required number of wells PLUS 10% extra volume to account for pipetting errors!</p></div>
+                    <p class="text-sm italic">The following protocol is for transfecting <strong>one well</strong> of a 24-well plate. Remember to scale up your calculations for the total number of wells you plan to transfect for each plasmid, and always prepare a little extra (e.g., 10%) to account for pipetting inaccuracies!</p>
+                    
+                    <div class="highlight-note">
+                        <p><strong>Crucial Reminder:</strong> Always prepare all solutions for the required number of wells PLUS 10% extra volume to account for pipetting errors!</p>
+                    </div>
 
                     <ol class="list-decimal list-inside space-y-3">
-                        <li><strong>Prepare Solution:</strong> In a sterile tube, add <strong>25 µL of 0.25 M CaCl₂</strong>, then add <strong>0.3 - 0.5 µg</strong> of your plasmid DNA.</li>
-                        
+                        <li>
+                            <strong>Prepare Solution (per well):</strong>
+                            <ul class="list-disc list-inside ml-5 mt-1 text-sm space-y-1">
+                                <li>In a sterile 1.5 mL microcentrifuge tube (Eppendorf tube), add <strong>25 µL of 0.25 M CaCl₂</strong>.</li>
+                                <li>
+                                    <strong>Add Plasmid DNA:</strong> Add <strong>0.3 - 0.5 µg</strong> of your desired plasmid (pH2B-GFP or pRKV-FLAG) to the CaCl₂.
+                                    <div class="p-2 mt-1 bg-amber-50 border-l-4 border-amber-400 text-amber-700 text-xs rounded-r-md">
+                                        <p><strong>Attention, Pipetting Pros!</strong> Pipetting volumes less than 2 µL is highly inaccurate. If your calculated volume is too small, consider preparing a master mix for several wells or groups.</p>
+                                        <p class="mt-1"><strong>Storage & Handling:</strong> Plasmids are stored in the freezer. Always keep plasmids on ice when outside the freezer.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <strong>Interactive Box 2: "Plasmid Calculation Wizards Wanted!"</strong>
                             <div class="interactive-box">
                                 <h4>Plasmid Calculation Practice</h4>
                                 <p class="text-sm mb-2"><strong>Scenario 1: Volume Calculation</strong><br>You want to use 0.4 µg of Plasmid pH2B-GFP. Its stock concentration is 682.3 ng/µL. How many µL of the stock solution do you need?</p>
                                 <div class="calculator grid grid-cols-1 sm:grid-cols-2 gap-2 items-end mb-4">
-                                    <div><label for="desired_mass_pg" class="block text-xs font-medium text-gray-700">Desired Mass (µg):</label><input type="number" id="desired_mass_pg" value="0.4" class="w-full mt-1 text-sm p-1"></div>
-                                    <div><label for="stock_conc_pg" class="block text-xs font-medium text-gray-700">Stock Conc. (ng/µL):</label><input type="number" id="stock_conc_pg" value="682.3" class="w-full mt-1 text-sm p-1"></div>
-                                    <div class="sm:col-span-2"><button id="plasmid-calc-btn" class="w-full py-1.5 text-sm">Calculate Volume</button></div>
+                                    <div>
+                                        <label for="desired_mass_pg" class="block text-xs font-medium text-gray-700">Desired Mass (µg):</label>
+                                        <input type="number" id="desired_mass_pg" value="0.4" class="w-full mt-1 text-sm p-1">
+                                    </div>
+                                    <div>
+                                        <label for="stock_conc_pg" class="block text-xs font-medium text-gray-700">Stock Conc. (ng/µL):</label>
+                                        <input type="number" id="stock_conc_pg" value="682.3" class="w-full mt-1 text-sm p-1">
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <button id="plasmid-calc-btn" class="w-full py-1.5 text-sm">Calculate Volume</button>
+                                    </div>
                                 </div>
                                 <div id="plasmid-volume-result-container" class="p-2 bg-white rounded-md shadow text-sm hidden">
-                                    <p id="plasmid-volume-result" class="font-semibold text-blue-700"></p>
+                                    <p id="plasmid-volume-result" class="font-semibold text-purple-700"></p>
                                 </div>
 
                                 <p class="text-sm mb-2 mt-4"><strong>Scenario 2: Handling Small Volumes</strong><br>The calculated volume from Scenario 1 is approximately 0.586 µL. Can this be pipetted accurately and directly with standard lab pipettes? (Select Yes or No)</p>
@@ -604,16 +671,42 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div id="small-volume-feedback" class="feedback-message text-xs mt-1 p-1.5 rounded-md hidden"></div>
                             </div>
                         </li>
-                        
-                        <li><strong>The Magic Ingredient:</strong> Slowly, while gently flicking the tube, add <strong>25 µL of 2x BBS</strong>.</li>
-                        <li><strong>Mix Gently:</strong> Cap and invert 4-5 times. **DO NOT VORTEX**.</li>
-                        <li><strong>Patience Test:</strong> Incubate for <strong>15 minutes at room temperature</strong> to allow precipitates to form.</li>
-                        <li><strong>"Feed" the Cells:</strong> Gently resuspend and add the <strong>50 µL suspension dropwise</strong> to the cells in the well.</li>
-                        <li><strong>Gentle Distribution:</strong> Swirl the plate gently in a "figure-eight" motion.</li>
-                        <li><strong>Off to the Incubator:</strong> Place in the 37°C, 5% CO₂ incubator overnight (16-24 hours).</li>
+                        <li>
+                            <strong>The Magic Ingredient:</strong> Slowly, while gently vortexing or flicking the tube containing the CaCl₂-DNA mixture, add <strong>25 µL of 2x BBS</strong>. *Critical: Add BBS to DNA/CaCl₂, not the other way around for optimal precipitate formation.*
+                        </li>
+                        <li>
+                            <strong>Mix Gently:</strong> Immediately after adding BBS, cap the tube and gently invert it 4-5 times to mix. **DO NOT VORTEX** at this stage.
+                        </li>
+                        <li>
+                            <strong>Patience Test (Precipitate Formation):</strong> Incubate the mixture for <strong>15 minutes at room temperature (RT)</strong>.
+                        </li>
+                        <li>
+                            <strong>"Feed" the Cells:</strong> After the 15-minute incubation, gently resuspend the fine precipitate and add <strong>50 µL of this suspension dropwise</strong> onto the cells in one well of a 24-well plate.
+                        </li>
+                        <li>
+                            <strong>Interactive Box 3: "My Plate Layout – Who Gets What?"</strong>
+                            <div class="interactive-box">
+                                <h4>Experimental Plate Setup</h4>
+                                <p class="text-sm mb-2">Plan your experiment! This is a conceptual representation.</p>
+                                <img src="placeholder_24_well_plate_interactive.png" alt="Schematic of a 24-well plate for transfection planning" class="my-2 rounded-lg shadow-md mx-auto block max-w-xs w-auto bg-gray-200 p-2" onerror="this.onerror=null; this.src='https://placehold.co/300x200/e2e8f0/4a5568?text=Placeholder:+24-Well+Plate'; this.alt='Placeholder: 24-Well Plate';">
+                                <p class="text-xs text-gray-600">Example conditions: Well A1: Untransfected Control, Well A2: pH2B-GFP, Well A3: pRKV-FLAG.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>Gentle Distribution:</strong> After adding the precipitate, gently swirl the plate in a "figure-eight" motion to ensure even distribution.
+                        </li>
+                        <li>
+                            <strong>Off to the Incubator:</strong> Place the plate carefully into the 37°C incubator with 5% CO₂ and incubate overnight (16-24 hours).
+                        </li>
+                        <li>
+                            <strong>Curious Observation:</strong>
+                            <p class="text-sm">The next day, check your cells under a phase-contrast microscope. Note any changes in cell morphology. Calcium phosphate precipitates can sometimes be slightly toxic, appearing as small, dark granules on or around them.</p>
+                            <img src="placeholder_HEK_cells_CaPi_phase_contrast.jpg" alt="HEK cells under phase contrast after calcium phosphate transfection" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-lg w-auto bg-gray-200 p-4" onerror="this.onerror=null; this.src='https://placehold.co/500x300/e2e8f0/4a5568?text=Placeholder:+HEK+Cells+CaPi'; this.alt='Placeholder: HEK Cells CaPi';">
+                        </li>
                     </ol>
 
                     <h4 class="styled-h4">D. Important Tips & Troubleshooting Corner</h4>
+                    <p>Successful transfection is an art as much as a science! Here are some key factors:</p>
                     <ul class="list-disc list-inside ml-4">
                         <li><strong>Cell Confluency:</strong> Aim for 50-70% confluency for optimal results.</li>
                         <li><strong>DNA Quality & Quantity:</strong> Use high-purity, endotoxin-free DNA.</li>
@@ -623,6 +716,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h4>Interactive Box 4: What Went Wrong? – Transfection Troubleshooting</h4>
                         <div id="transfection-troubleshooting-quiz"></div>
                     </div>
+
+                    <h4 class="styled-h4">E. Outlook</h4>
+                    <p>Congratulations, you've theoretically performed a transfection! What's next? After 24-48 hours, you would typically:</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Observe cells under a fluorescence microscope to detect GFP expression.</li>
+                        <li>Perform immunofluorescence staining to detect the FLAG-tagged protein.</li>
+                        <li>Calculate transfection efficiency.</li>
+                        <li>Proceed with downstream experiments, such as Western blotting.</li>
+                    </ul>
                 </div>
             `,
             quiz: [
@@ -649,68 +751,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ],
             init: () => {
-                // Attach event listener for the plasmid volume calculator button
-                document.getElementById('plasmid-calc-btn')?.addEventListener('click', calculatePlasmidVolume);
-                
                 // Initialize Interactive Box 1: Transfection Method Choice
                 const methodChoiceContainer = document.getElementById('transfection-method-choice-quiz');
-                const methodChoiceFeedback = document.getElementById('transfection-method-choice-feedback');
-                if (methodChoiceContainer && methodChoiceFeedback) {
+                if (methodChoiceContainer) {
                     const methodQuizData = {
                         options: ["Lipofection (e.g., Lipofectamine)", "Electroporation", "Calcium Phosphate Precipitation", "Viral Transduction (e.g., with lentiviruses)"],
                         answer: "Calcium Phosphate Precipitation",
                         feedback_correct: "Exactly! The calcium phosphate method is an established, cost-effective method well-suited for transfecting adherent cells like HEK293.",
                         feedback_incorrect: "Not quite. While other methods are effective, CaPi is a great balance of cost and efficiency for this specific purpose."
                     };
-                    methodChoiceContainer.innerHTML = '';
                     methodQuizData.options.forEach(optText => {
-                        const optButton = document.createElement('button');
-                        optButton.className = 'quiz-option text-xs sm:text-sm';
-                        optButton.textContent = optText;
-                        optButton.addEventListener('click', () => {
-                            methodChoiceContainer.querySelectorAll('.quiz-option').forEach(btn => {
-                                btn.disabled = true;
-                                btn.classList.remove('correct', 'incorrect');
-                            });
-                            methodChoiceFeedback.classList.remove('hidden');
-                            if (optText === methodQuizData.answer) {
-                                optButton.classList.add('correct');
-                                methodChoiceFeedback.innerHTML = `<strong>Correct!</strong> ${methodQuizData.feedback_correct}`;
-                                methodChoiceFeedback.classList.add('bg-purple-200', 'text-purple-800');
-                            } else {
-                                optButton.classList.add('incorrect');
-                                methodChoiceFeedback.innerHTML = `<strong>Not quite.</strong> ${methodQuizData.feedback_incorrect}`;
-                                methodChoiceFeedback.classList.add('bg-red-600', 'text-white');
-                            }
-                            methodChoiceFeedback.classList.remove('hidden');
-                        });
-                        methodChoiceContainer.appendChild(optButton);
+                        const btn = document.createElement('button');
+                        btn.className = 'quiz-option text-xs sm:text-sm';
+                        btn.textContent = optText;
+                        btn.addEventListener('click', () => handleSimpleQuiz(btn, optText === methodQuizData.answer, methodQuizData.feedback_correct, methodQuizData.feedback_incorrect));
+                        methodChoiceContainer.appendChild(btn);
                     });
                 }
-                
-                // Initialize Interactive Box 2: Small Volume Pipetting Quiz
+
+                // Initialize Interactive Box 2: Plasmid Calculator and Small Volume Quiz
+                document.getElementById('plasmid-calc-btn')?.addEventListener('click', calculatePlasmidVolume);
                 const smallVolumeQuizContainer = document.getElementById('small-volume-quiz');
-                const smallVolumeFeedback = document.getElementById('small-volume-feedback');
-                if (smallVolumeQuizContainer && smallVolumeFeedback) {
+                if(smallVolumeQuizContainer) {
                     smallVolumeQuizContainer.querySelectorAll('.quiz-option').forEach(button => {
                         button.addEventListener('click', () => {
-                            smallVolumeQuizContainer.querySelectorAll('.quiz-option').forEach(btn => {
-                                btn.disabled = true;
-                                btn.classList.remove('correct', 'incorrect');
-                            });
-                            smallVolumeFeedback.classList.remove('hidden');
-                            const isCorrect = button.dataset.correct === 'true';
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                smallVolumeFeedback.innerHTML = "<strong>Correct!</strong> 0.586 µL is generally too small to pipette accurately. A good strategy is to prepare a master mix or a working dilution.";
-                                smallVolumeFeedback.classList.add('bg-purple-200', 'text-purple-800');
-                            } else {
-                                button.classList.add('incorrect');
-                                smallVolumeFeedback.innerHTML = "<strong>Not quite.</strong> This volume is very prone to error with standard lab equipment.";
-                                smallVolumeFeedback.classList.add('bg-red-600', 'text-white');
-                                smallVolumeQuizContainer.querySelector('[data-correct="true"]').classList.add('correct');
-                            }
-                            smallVolumeFeedback.classList.remove('hidden');
+                             const isCorrect = button.dataset.correct === 'true';
+                             const correctFeedback = "<strong>Correct!</strong> 0.586 µL is generally too small to pipette accurately. A good strategy is to prepare a master mix or a working dilution.";
+                             const incorrectFeedback = "<strong>Not quite.</strong> This volume is very prone to error with standard lab equipment.";
+                             handleSimpleQuiz(button, isCorrect, correctFeedback, incorrectFeedback);
                         });
                     });
                 }
@@ -732,39 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             explanation: "The pH of the BBS is extremely critical for forming the right kind of fine precipitate for efficient uptake. Incorrect pH is a very common reason for CaPi transfection failure."
                         }
                     ];
-                    troubleshootingContainer.innerHTML = ''; // Clear if re-initializing
-                    troubleshootingQuizData.forEach((q, index) => {
-                        const qDiv = document.createElement('div');
-                        qDiv.className = 'quiz-question p-3 mb-2 bg-white rounded-md shadow-sm';
-                        let optionsHtml = `<p class="font-medium mb-2 text-sm">${index + 1}. ${q.question}</p><div class="space-y-1">`;
-                        q.options.forEach(optText => {
-                            optionsHtml += `<button class="quiz-option text-xs">${optText}</button>`;
-                        });
-                        optionsHtml += `</div><div class="feedback-message text-xs mt-1 p-1 rounded-md hidden"></div>`;
-                        qDiv.innerHTML = optionsHtml;
-                        
-                        // Add event listeners for this specific quiz
-                        const optionButtons = qDiv.querySelectorAll('.quiz-option');
-                        optionButtons.forEach(btn => {
-                            btn.addEventListener('click', () => {
-                                optionButtons.forEach(b => b.disabled = true);
-                                const feedbackEl = qDiv.querySelector('.feedback-message');
-                                feedbackEl.classList.remove('hidden');
-                                if(btn.textContent === q.answer) {
-                                    btn.classList.add('correct');
-                                    feedbackEl.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-purple-200', 'text-purple-800');
-                                } else {
-                                    btn.classList.add('incorrect');
-                                    feedbackEl.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-red-600', 'text-white');
-                                    optionButtons.forEach(opt => { if(opt.textContent === q.answer) opt.classList.add('correct'); });
-                                }
-                                feedbackEl.classList.remove('hidden');
-                            });
-                        });
-                        troubleshootingContainer.appendChild(qDiv);
-                    });
+                    renderInteractiveQuiz(troubleshootingContainer, troubleshootingQuizData);
                 }
             }
         }
@@ -772,81 +808,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // =================================================================================
     // SECTION 2: HELPER & CALCULATOR FUNCTIONS
-    // These functions perform specific tasks like calculations or checking answers.
-    // They are called by event listeners set up in the `init` functions.
     // =================================================================================
 
-    /**
-     * Converts a value from milliliters to microliters.
-     */
     function convertUnits() {
         const mlInput = document.getElementById('ml-input');
         const outputP = document.getElementById('ul-output');
         if (!mlInput || !outputP) return;
-
         const mlVal = parseFloat(mlInput.value);
         if (!isNaN(mlVal)) {
             outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
-            outputP.className = 'mt-2 text-sm font-medium text-purple-700';
         } else {
             outputP.textContent = 'Please enter a valid number for mL.';
-            outputP.className = 'mt-2 text-sm font-medium text-red-600';
         }
     }
 
-    /**
-     * Calculates the missing value in a C1V1 = C2V2 dilution equation.
-     */
     function calculateDilution() {
-        const c1El = document.getElementById('c1_calc');
-        const v1El = document.getElementById('v1_calc');
-        const c2El = document.getElementById('c2_calc');
-        const v2El = document.getElementById('v2_calc');
-        const resultP = document.getElementById('dilution-result');
-        const stepsP = document.getElementById('dilution-steps');
+        const c1El = document.getElementById('c1_calc'), v1El = document.getElementById('v1_calc');
+        const c2El = document.getElementById('c2_calc'), v2El = document.getElementById('v2_calc');
+        const resultP = document.getElementById('dilution-result'), stepsP = document.getElementById('dilution-steps');
         const resultContainer = document.getElementById('dilution-result-container');
         const concUnits = document.getElementById('calc_units_conc').value;
         const volUnits = document.getElementById('calc_units_vol').value;
 
         if (!c1El || !v1El || !c2El || !v2El || !resultP || !stepsP || !resultContainer) return;
 
-        const c1 = parseFloat(c1El.value);
-        const v1 = parseFloat(v1El.value);
-        const c2 = parseFloat(c2El.value);
-        const v2 = parseFloat(v2El.value);
+        const c1 = parseFloat(c1El.value), v1 = parseFloat(v1El.value);
+        const c2 = parseFloat(c2El.value), v2 = parseFloat(v2El.value);
         
         let missingCount = [c1, v1, c2, v2].filter(v => isNaN(v)).length;
 
         resultContainer.classList.remove('hidden');
         if (missingCount !== 1) {
             resultP.textContent = "Error: Please provide exactly 3 values.";
-            resultP.className = "font-semibold text-red-600";
             stepsP.innerHTML = "";
             return;
         }
 
-        let calculatedValueStr = "";
-        let calculationStepsStr = "";
+        let calculatedValueStr = "", calculationStepsStr = "";
 
-        if (isNaN(v1)) {
-            if (c1 === 0) { resultP.textContent = "Error: Stock Concentration (C1) cannot be zero."; return; }
-            const calc_v1_val = (c2 * v2) / c1;
-            calculatedValueStr = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${calc_v1_val.toFixed(3)} ${volUnits}</strong>`;
-            calculationStepsStr = `You need ${calc_v1_val.toFixed(3)} ${volUnits} of stock and ${(v2 - calc_v1_val).toFixed(3)} ${volUnits} of diluent.`;
+        if (isNaN(c1)) {
+            if (v1 === 0) { resultP.textContent = "Error: V1 cannot be zero."; return; }
+            const val = (c2 * v2) / v1;
+            calculatedValueStr = `Calculated Stock Concentration (C<sub>1</sub>) = <strong>${val.toFixed(3)} ${concUnits}</strong>`;
+        } else if (isNaN(v1)) {
+            if (c1 === 0) { resultP.textContent = "Error: C1 cannot be zero."; return; }
+            const val = (c2 * v2) / c1;
+            calculatedValueStr = `Calculated Stock Volume (V<sub>1</sub>) = <strong>${val.toFixed(3)} ${volUnits}</strong>`;
+            calculationStepsStr = `You need ${val.toFixed(3)} ${volUnits} of stock and ${(v2 - val).toFixed(3)} ${volUnits} of diluent.`;
         } else if (isNaN(c2)) {
-            if (v2 === 0) { resultP.textContent = "Error: Final Volume (V2) cannot be zero."; return; }
-            const calc_c2_val = (c1 * v1) / v2;
-            calculatedValueStr = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${calc_c2_val.toFixed(3)} ${concUnits}</strong>`;
-        } // Add other cases (calculating C1, V2) as needed...
-
+            if (v2 === 0) { resultP.textContent = "Error: V2 cannot be zero."; return; }
+            const val = (c1 * v1) / v2;
+            calculatedValueStr = `Calculated Final Concentration (C<sub>2</sub>) = <strong>${val.toFixed(3)} ${concUnits}</strong>`;
+        } else if (isNaN(v2)) {
+            if (c2 === 0) { resultP.textContent = "Error: C2 cannot be zero."; return; }
+            const val = (c1 * v1) / c2;
+            calculatedValueStr = `Calculated Final Volume (V<sub>2</sub>) = <strong>${val.toFixed(3)} ${volUnits}</strong>`;
+        }
+        
         resultP.innerHTML = calculatedValueStr;
-        resultP.className = "font-semibold text-purple-700";
         stepsP.innerHTML = calculationStepsStr;
     }
 
-    /**
-     * Calculates cell density from hemocytometer counts.
-     */
     function calculateCellDensity() {
         const cellsCounted = parseInt(document.getElementById('cells-counted').value);
         const dilutionFactor = parseFloat(document.getElementById('dilution-factor').value);
@@ -855,18 +877,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isNaN(cellsCounted) || isNaN(dilutionFactor) || cellsCounted < 0 || dilutionFactor <= 0) {
             outputP.textContent = "Please enter valid, positive numbers.";
-            outputP.className = "mt-3 font-semibold text-red-600";
             return;
         }
         const avgCellsPerSquare = cellsCounted / 4;
         const cellsPerMilliLiter = avgCellsPerSquare * dilutionFactor * 10000;
         outputP.innerHTML = `Calculated Cell Density: <strong>${cellsPerMilliLiter.toExponential(2)} cells/mL</strong>`;
-        outputP.className = "mt-3 font-semibold text-purple-700";
     }
 
-    /**
-     * Checks answers for practice problems with one or more input fields.
-     */
     function checkPracticeAnswer(problemId, correctAnswers, inputIds) {
         const feedbackDiv = document.getElementById(`${problemId}-feedback`);
         const solutionDiv = document.getElementById(`${problemId}-solution`);
@@ -877,7 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputElements.forEach((inputEl, index) => {
             const userAnswer = parseFloat(inputEl.value);
             inputEl.classList.remove('correct-answer', 'incorrect-answer');
-            if (Math.abs(userAnswer - correctAnswers[index]) > 0.011) { // Allow for small rounding differences
+            if (Math.abs(userAnswer - correctAnswers[index]) > 0.011) {
                 allCorrect = false;
                 inputEl.classList.add('incorrect-answer');
             } else {
@@ -889,16 +906,11 @@ document.addEventListener('DOMContentLoaded', () => {
         solutionDiv.classList.remove('hidden');
         if (allCorrect) {
             feedbackDiv.textContent = 'Correct!';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-purple-700';
         } else {
             feedbackDiv.innerHTML = 'One or more answers are incorrect. Please review the solution below.';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-red-600';
         }
     }
     
-    /**
-     * Calculates required plasmid volume for transfection.
-     */
     function calculatePlasmidVolume() {
         const desiredMassUg = parseFloat(document.getElementById('desired_mass_pg').value);
         const stockConcNgUl = parseFloat(document.getElementById('stock_conc_pg').value);
@@ -908,30 +920,74 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resultContainerEl.classList.remove('hidden');
         if (isNaN(desiredMassUg) || isNaN(stockConcNgUl) || desiredMassUg <= 0 || stockConcNgUl <= 0) {
-            resultEl.innerHTML = "<span class='text-red-600'>Please enter valid positive numbers.</span>";
+            resultEl.innerHTML = "<span class='text-red-500'>Please enter valid positive numbers.</span>";
             return;
         }
         const volumeUl = (desiredMassUg * 1000) / stockConcNgUl;
         resultEl.innerHTML = `Required Volume: <strong>${volumeUl.toFixed(3)} &micro;L</strong>`;
-        resultEl.className = "font-semibold text-purple-700";
     }
 
+    function handleSimpleQuiz(button, isCorrect, correctFeedback, incorrectFeedback) {
+        const parentDiv = button.parentElement;
+        const feedbackEl = parentDiv.nextElementSibling;
+        
+        parentDiv.querySelectorAll('.quiz-option').forEach(btn => {
+            btn.disabled = true;
+            btn.classList.remove('correct', 'incorrect');
+        });
+
+        if (isCorrect) {
+            button.classList.add('correct');
+            feedbackEl.innerHTML = correctFeedback;
+        } else {
+            button.classList.add('incorrect');
+            feedbackEl.innerHTML = incorrectFeedback;
+            const correctButton = parentDiv.querySelector('[data-correct="true"]') || parentDiv.querySelector('.correct');
+            if (correctButton) correctButton.classList.add('correct');
+        }
+        feedbackEl.classList.remove('hidden');
+    }
+    
+    function renderInteractiveQuiz(container, quizData) {
+        container.innerHTML = '';
+        quizData.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'quiz-question p-3 mb-2 bg-white rounded-md shadow-sm';
+            let optionsHtml = `<p class="font-medium mb-2 text-sm">${index + 1}. ${q.question}</p><div class="space-y-1">`;
+            q.options.forEach(optText => {
+                optionsHtml += `<button class="quiz-option text-xs">${optText}</button>`;
+            });
+            optionsHtml += `</div><div class="feedback-message text-xs mt-1 p-1 rounded-md hidden"></div>`;
+            qDiv.innerHTML = optionsHtml;
+            
+            qDiv.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isCorrect = btn.textContent === q.answer;
+                    const correctFeedback = `<strong>Correct!</strong> ${q.explanation}`;
+                    const incorrectFeedback = `<strong>Incorrect.</strong> ${q.explanation}`;
+                    handleSimpleQuiz(btn, isCorrect, correctFeedback, incorrectFeedback);
+                     if (!isCorrect) {
+                        qDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                            if (opt.textContent === q.answer) opt.classList.add('correct');
+                        });
+                    }
+                });
+            });
+            container.appendChild(qDiv);
+        });
+    }
 
     // =================================================================================
     // SECTION 3: CORE UI LOGIC
-    // These functions manage the overall application state, like rendering content and quizzes.
     // =================================================================================
     
-    /**
-     * Populates the sidebar with links based on the modulesData array.
-     */
     function populateSidebar() {
         if (!sidebar) return;
         modulesData.forEach(module => {
             const link = document.createElement('a');
             link.href = '#';
             link.textContent = module.title;
-            link.className = 'block py-2.5 px-4 rounded sidebar-link text-white hover:bg-purple-700 hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
+            link.className = 'block py-2.5 px-4 rounded sidebar-link text-slate-200 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
             link.dataset.moduleId = module.id;
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -941,9 +997,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * Renders the end-of-module quiz in a specified container.
-     */
     function renderQuiz(quizData, containerId) {
         const quizContainer = document.getElementById(containerId);
         if (!quizContainer) return;
@@ -959,25 +1012,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="space-y-2">${optionsHtml}</div>
                 <div class="feedback-message text-sm mt-2 p-2 rounded-md hidden"></div>
             `;
-            quizContainer.appendChild(questionDiv);
-
-            // Add event listeners to the newly created option buttons
-            const optionButtons = questionDiv.querySelectorAll('.quiz-option');
-            optionButtons.forEach(button => {
+            
+            questionDiv.querySelectorAll('.quiz-option').forEach(button => {
                 button.addEventListener('click', () => {
-                    optionButtons.forEach(btn => btn.disabled = true);
                     const feedbackDiv = questionDiv.querySelector('.feedback-message');
-                    feedbackDiv.classList.remove('hidden');
+                    const allOptions = questionDiv.querySelectorAll('.quiz-option');
+                    allOptions.forEach(btn => btn.disabled = true);
                     
                     if (button.textContent === q.answer) {
                         button.classList.add('correct');
                         feedbackDiv.innerHTML = '<strong>Correct!</strong> ';
-                        feedbackDiv.classList.add('bg-purple-200', 'text-purple-800');
                     } else {
                         button.classList.add('incorrect');
                         feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${q.answer}</span>. `;
-                        feedbackDiv.classList.add('bg-red-600', 'text-white');
-                        optionButtons.forEach(btn => { if (btn.textContent === q.answer) btn.classList.add('correct'); });
+                        allOptions.forEach(btn => { if (btn.textContent === q.answer) btn.classList.add('correct'); });
                     }
                     if (q.explanation) {
                         feedbackDiv.innerHTML += `<br><span class="text-xs">${q.explanation}</span>`;
@@ -985,12 +1033,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     feedbackDiv.classList.remove('hidden');
                 });
             });
+            quizContainer.appendChild(questionDiv);
         });
     }
     
-    /**
-     * Loads a module's content and quiz into the main content area.
-     */
     function loadModule(moduleId) {
         const moduleData = modulesData.find(m => m.id === moduleId);
         if (!moduleData || !mainContent) return;
@@ -1000,15 +1046,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (moduleData.quiz && moduleData.quiz.length > 0) {
             const quizHtml = `
-                <div class="mt-8 pt-6 border-t-2 border-blue-300">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-4">Module Quiz!</h3>
+                <div class="mt-8 pt-6 border-t-2 border-purple-300">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-4">Module Quiz!</h3>
+                    <p class="text-sm text-gray-600 mb-4">Test your knowledge from this module.</p>
                     <div id="quiz-container-${moduleId}"></div>
                 </div>`;
             mainContent.insertAdjacentHTML('beforeend', quizHtml);
             renderQuiz(moduleData.quiz, `quiz-container-${moduleId}`);
         }
 
-        // Run the module's specific initialization script for interactivity
         if (typeof moduleData.init === 'function') {
             try {
                 moduleData.init();
@@ -1017,18 +1063,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Update active link in the sidebar
         document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.classList.remove('active', 'bg-purple-800', 'text-yellow-400');
+            link.classList.remove('active');
             if (link.dataset.moduleId === moduleId) {
-                link.classList.add('active', 'bg-purple-800', 'text-yellow-400');
+                link.classList.add('active');
             }
         });
     }
 
     // =================================================================================
     // SECTION 4: APPLICATION INITIALIZATION
-    // This code runs once when the page is loaded.
     // =================================================================================
 
     const sidebar = document.getElementById('sidebar');
@@ -1036,6 +1080,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const welcomeMessage = document.getElementById('welcome-message');
     
     populateSidebar();
-    welcomeMessage.style.display = 'block';
+    if(welcomeMessage) welcomeMessage.style.display = 'block';
 
 });
