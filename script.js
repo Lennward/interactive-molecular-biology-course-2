@@ -175,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     explanation: "Mycoplasma are among the smallest self-replicating organisms and their lack of a cell wall makes them resistant to some antibiotics and flexible enough to pass through filters. They often cause subtle changes in cell behavior rather than obvious turbidity."
                 }
             ],
-            // `init` function sets up event listeners for this module's interactive elements
             init: () => {
                 // Plasmid Components Interaction
                 const plasmidButtonsContainer = document.getElementById('plasmid-components-buttons');
@@ -682,7 +681,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 optButton.classList.add('incorrect');
                                 methodChoiceFeedback.innerHTML = `<strong>Not quite.</strong> ${methodQuizData.feedback_incorrect}`;
                                 methodChoiceFeedback.classList.add('bg-red-600', 'text-white');
-                                methodChoiceContainer.querySelector('.quiz-option').textContent === methodQuizData.answer
                             }
                             methodChoiceFeedback.classList.remove('hidden');
                         });
@@ -1042,3 +1040,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 What is wrong with the CSS code?
+
+}
+There is nothing wrong with my files. Please check again.
