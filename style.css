@@ -1,4 +1,8 @@
-/* --- General Body & Layout --- */
+/*
+ * Your custom CSS for the Interactive Course.
+ * All default Tailwind classes used in HTML should be defined here
+ * using your new color palette.
+ */
 /* --- New Color Variables --- */
 :root {
   --purple-dark: #352253;
@@ -158,13 +162,13 @@ body {
 }
 
 .quiz-option.correct, .practice-problem-box .correct-answer {
-    background-color: rgba(253, 172, 19, 0.2) !important; /* FDAC13 with alpha */
-    border-color: var(--orange-medium) !important;
-    color: var(--orange-dark) !important;
+    background-color: rgba(212, 43, 233, 0.1) !important;
+    border-color: var(--purple-light) !important;
+    color: var(--purple-dark) !important;
 }
 
 .quiz-option.incorrect, .practice-problem-box .incorrect-answer {
-    background-color: rgba(229, 74, 66, 0.2) !important; /* E54A42 with alpha */
+    background-color: rgba(229, 74, 66, 0.2) !important;
     border-color: var(--orange-dark) !important;
     color: var(--orange-dark) !important;
 }
