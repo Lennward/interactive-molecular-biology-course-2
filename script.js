@@ -1,4 +1,3 @@
-```javascript
 /*
  * Cell & Protein Analytics Interactive Course - Main Script
  *
@@ -252,11 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (optButton.textContent === q.answer) {
                                     optButton.classList.add('correct');
                                     feedbackEl.innerHTML = '<strong>Correct!</strong>';
-                                    feedbackEl.classList.add('bg-purple-light', 'text-purple-dark');
+                                    feedbackEl.classList.add('bg-purple-200', 'text-purple-800'); // CHANGED
                                 } else {
                                     optButton.classList.add('incorrect');
                                     feedbackEl.innerHTML = `<strong>Incorrect.</strong> Correct answer: ${q.answer}`;
-                                    feedbackEl.classList.add('bg-orange-dark', 'text-white');
+                                    feedbackEl.classList.add('bg-red-600', 'text-white'); // CHANGED
                                     parentQuestionDiv.querySelectorAll('.quiz-option').forEach(btn => {
                                         if (btn.textContent === q.answer) btn.classList.add('correct');
                                     });
@@ -678,11 +677,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (optText === methodQuizData.answer) {
                                 optButton.classList.add('correct');
                                 methodChoiceFeedback.innerHTML = `<strong>Correct!</strong> ${methodQuizData.feedback_correct}`;
-                                methodChoiceFeedback.classList.add('bg-purple-light', 'text-purple-dark');
+                                methodChoiceFeedback.classList.add('bg-purple-200', 'text-purple-800'); // CHANGED
                             } else {
                                 optButton.classList.add('incorrect');
                                 methodChoiceFeedback.innerHTML = `<strong>Not quite.</strong> ${methodQuizData.feedback_incorrect}`;
-                                methodChoiceFeedback.classList.add('bg-orange-dark', 'text-white');
+                                methodChoiceFeedback.classList.add('bg-red-600', 'text-white'); // CHANGED
                                 methodChoiceContainer.querySelector('.quiz-option').textContent === methodQuizData.answer
                             }
                             methodChoiceFeedback.classList.remove('hidden');
@@ -706,11 +705,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (isCorrect) {
                                 button.classList.add('correct');
                                 smallVolumeFeedback.innerHTML = "<strong>Correct!</strong> 0.586 µL is generally too small to pipette accurately. A good strategy is to prepare a master mix or a working dilution.";
-                                smallVolumeFeedback.classList.add('bg-purple-light', 'text-purple-dark');
+                                smallVolumeFeedback.classList.add('bg-purple-200', 'text-purple-800'); // CHANGED
                             } else {
                                 button.classList.add('incorrect');
                                 smallVolumeFeedback.innerHTML = "<strong>Not quite.</strong> This volume is very prone to error with standard lab equipment.";
-                                smallVolumeFeedback.classList.add('bg-orange-dark', 'text-white');
+                                smallVolumeFeedback.classList.add('bg-red-600', 'text-white'); // CHANGED
                                 smallVolumeQuizContainer.querySelector('[data-correct="true"]').classList.add('correct');
                             }
                             smallVolumeFeedback.classList.remove('hidden');
@@ -756,11 +755,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if(btn.textContent === q.answer) {
                                     btn.classList.add('correct');
                                     feedbackEl.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-purple-light', 'text-purple-dark');
+                                    feedbackEl.classList.add('bg-purple-200', 'text-purple-800'); // CHANGED
                                 } else {
                                     btn.classList.add('incorrect');
                                     feedbackEl.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-orange-dark', 'text-white');
+                                    feedbackEl.classList.add('bg-red-600', 'text-white'); // CHANGED
                                     optionButtons.forEach(opt => { if(opt.textContent === q.answer) opt.classList.add('correct'); });
                                 }
                                 feedbackEl.classList.remove('hidden');
@@ -790,10 +789,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const mlVal = parseFloat(mlInput.value);
         if (!isNaN(mlVal)) {
             outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
-            outputP.className = 'mt-2 text-sm font-medium text-purple-medium';
+            outputP.className = 'mt-2 text-sm font-medium text-purple-700'; // CHANGED
         } else {
             outputP.textContent = 'Please enter a valid number for mL.';
-            outputP.className = 'mt-2 text-sm font-medium text-orange-dark';
+            outputP.className = 'mt-2 text-sm font-medium text-red-600'; // CHANGED
         }
     }
 
@@ -823,7 +822,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultContainer.classList.remove('hidden');
         if (missingCount !== 1) {
             resultP.textContent = "Error: Please provide exactly 3 values.";
-            resultP.className = "font-semibold text-orange-dark";
+            resultP.className = "font-semibold text-red-600"; // CHANGED
             stepsP.innerHTML = "";
             return;
         }
@@ -843,7 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } // Add other cases (calculating C1, V2) as needed...
 
         resultP.innerHTML = calculatedValueStr;
-        resultP.className = "font-semibold text-purple-medium";
+        resultP.className = "font-semibold text-purple-700"; // CHANGED
         stepsP.innerHTML = calculationStepsStr;
     }
 
@@ -858,13 +857,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isNaN(cellsCounted) || isNaN(dilutionFactor) || cellsCounted < 0 || dilutionFactor <= 0) {
             outputP.textContent = "Please enter valid, positive numbers.";
-            outputP.className = "mt-3 font-semibold text-orange-dark";
+            outputP.className = "mt-3 font-semibold text-red-600"; // CHANGED
             return;
         }
         const avgCellsPerSquare = cellsCounted / 4;
         const cellsPerMilliLiter = avgCellsPerSquare * dilutionFactor * 10000;
         outputP.innerHTML = `Calculated Cell Density: <strong>${cellsPerMilliLiter.toExponential(2)} cells/mL</strong>`;
-        outputP.className = "mt-3 font-semibold text-purple-medium";
+        outputP.className = "mt-3 font-semibold text-purple-700"; // CHANGED
     }
 
     /**
@@ -892,10 +891,10 @@ document.addEventListener('DOMContentLoaded', () => {
         solutionDiv.classList.remove('hidden');
         if (allCorrect) {
             feedbackDiv.textContent = 'Correct!';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-purple-medium';
+            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-purple-700'; // CHANGED
         } else {
             feedbackDiv.innerHTML = 'One or more answers are incorrect. Please review the solution below.';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-orange-dark';
+            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-red-600'; // CHANGED
         }
     }
     
@@ -911,12 +910,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resultContainerEl.classList.remove('hidden');
         if (isNaN(desiredMassUg) || isNaN(stockConcNgUl) || desiredMassUg <= 0 || stockConcNgUl <= 0) {
-            resultEl.innerHTML = "<span class='text-orange-dark'>Please enter valid positive numbers.</span>";
+            resultEl.innerHTML = "<span class='text-red-600'>Please enter valid positive numbers.</span>"; // CHANGED
             return;
         }
         const volumeUl = (desiredMassUg * 1000) / stockConcNgUl;
         resultEl.innerHTML = `Required Volume: <strong>${volumeUl.toFixed(3)} &micro;L</strong>`;
-        resultEl.className = "font-semibold text-purple-medium";
+        resultEl.className = "font-semibold text-purple-700"; // CHANGED
     }
 
 
@@ -934,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const link = document.createElement('a');
             link.href = '#';
             link.textContent = module.title;
-            link.className = 'block py-2.5 px-4 rounded sidebar-link text-white hover:bg-purple-medium hover:text-orange-accent focus:outline-none focus:ring-2 focus:ring-orange-accent transition-colors duration-150 text-sm';
+            link.className = 'block py-2.5 px-4 rounded sidebar-link text-white hover:bg-purple-700 hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm'; // CHANGED
             link.dataset.moduleId = module.id;
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -975,11 +974,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (button.textContent === q.answer) {
                         button.classList.add('correct');
                         feedbackDiv.innerHTML = '<strong>Correct!</strong> ';
-                        feedbackDiv.classList.add('bg-purple-light', 'text-purple-dark');
+                        feedbackDiv.classList.add('bg-purple-200', 'text-purple-800'); // CHANGED
                     } else {
                         button.classList.add('incorrect');
                         feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${q.answer}</span>. `;
-                        feedbackDiv.classList.add('bg-orange-dark', 'text-white');
+                        feedbackDiv.classList.add('bg-red-600', 'text-white'); // CHANGED
                         optionButtons.forEach(btn => { if (btn.textContent === q.answer) btn.classList.add('correct'); });
                     }
                     if (q.explanation) {
@@ -1022,9 +1021,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update active link in the sidebar
         document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.classList.remove('active', 'bg-purple-dark', 'text-orange-accent');
+            link.classList.remove('active', 'bg-purple-800', 'text-yellow-400'); // CHANGED
             if (link.dataset.moduleId === moduleId) {
-                link.classList.add('active', 'bg-purple-dark', 'text-orange-accent');
+                link.classList.add('active', 'bg-purple-800', 'text-yellow-400'); // CHANGED
             }
         });
     }
@@ -1042,4 +1041,3 @@ document.addEventListener('DOMContentLoaded', () => {
     welcomeMessage.style.display = 'block';
 
 });
-```
