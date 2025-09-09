@@ -1,26 +1,27 @@
 /*
  * Your custom CSS for the Interactive Course.
- * All default Tailwind classes used in HTML should be defined here
- * using your new color palette.
+ * All styles are now defined here to avoid Tailwind configuration issues.
  */
+
 /* --- New Color Variables --- */
 :root {
-  --purple-dark: #352253;
-  --purple-medium: #85279E;
-  --purple-light: #D42BE9;
-  --purple-accent: #F64BCC;
-  
-  --orange-dark: #E54A42;
-  --orange-medium: #FB8825;
-  --orange-light: #FDAC13;
-  --orange-accent: #FFD000;
-  
-  --text-primary: #374151; /* Keeping a dark gray for body text for readability */
-  --text-secondary: #fff;
-  --background-light: #f9fafb;
-  --border-light: #e5e7eb;
+    --purple-dark: #352253;
+    --purple-medium: #85279E;
+    --purple-light: #D42BE9;
+    --purple-accent: #F64BCC;
+    
+    --orange-dark: #E54A42;
+    --orange-medium: #FB8825;
+    --orange-light: #FDAC13;
+    --orange-accent: #FFD000;
+    
+    --text-primary: #374151;
+    --text-secondary: #fff;
+    --background-light: #f9fafb;
+    --border-light: #e5e7eb;
 }
 
+/* --- General Body & Layout --- */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -29,22 +30,183 @@ body {
     flex-direction: column;
 }
 
-.flex.h-screen {
+.flex {
     display: flex;
+}
+
+.h-screen {
     height: 100vh;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+.bg-gray-200 {
+    background-color: #e5e7eb;
 }
 
 #sidebar {
     flex-shrink: 0;
+    width: 16rem; /* Tailwind w-64 */
+}
+
+@media (min-width: 640px) {
+    #sidebar {
+        width: 18rem; /* Tailwind sm:w-72 */
+    }
+}
+
+.bg-purple-dark {
+    background-color: var(--purple-dark);
+}
+
+.text-white {
+    color: var(--text-secondary);
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+@media (min-width: 640px) {
+    .sm\:p-6 {
+        padding: 1.5rem;
+    }
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 0.75rem;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .sm\:text-2xl {
+        font-size: 1.5rem;
+    }
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-orange-accent {
+    color: var(--orange-accent);
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.border-b-2 {
+    border-bottom-width: 2px;
+}
+
+.border-purple-medium {
+    border-color: var(--purple-medium);
+}
+
+.pb-2 {
+    padding-bottom: 0.5rem;
 }
 
 #main-content {
     flex-grow: 1;
 }
 
+.p-10 {
+    padding: 2.5rem;
+}
+
+.bg-slate-50 {
+    background-color: #f8fafc;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+/* Welcome Message */
+#welcome-message {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-purple-dark {
+    color: var(--purple-dark);
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.text-base {
+    font-size: 1rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-gray-600 {
+    color: #4b5563;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.block {
+    display: block;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.h-16 {
+    height: 4rem;
+}
+
+.w-auto {
+    width: auto;
+}
+
 /* --- Sidebar Styling --- */
 .sidebar-link {
+    display: block;
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
     transition: all 0.3s ease;
+    color: #fff;
+    font-size: 0.875rem;
 }
 
 .sidebar-link:hover, .sidebar-link.active {
@@ -75,7 +237,7 @@ body {
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--purple-dark);
-    background-color: rgba(212, 43, 233, 0.1); /* D42BE9 with alpha */
+    background-color: rgba(212, 43, 233, 0.1);
     padding: 0.4rem 0.8rem;
     border-radius: 0.375rem;
     display: inline-block;
@@ -102,7 +264,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1em;
     color: var(--purple-dark);
-    background-color: #f0f4ff; /* A light, neutral background */
+    background-color: #f0f4ff;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
     border: 1px solid var(--purple-light);
@@ -113,7 +275,7 @@ body {
 
 /* --- Interactive Boxes & Practice Problems --- */
 .interactive-box, .practice-problem-box {
-    background-color: rgba(246, 75, 204, 0.1); /* F64BCC with alpha */
+    background-color: rgba(246, 75, 204, 0.1);
     border: 1px solid var(--purple-light);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -158,7 +320,7 @@ body {
 
 .quiz-option:hover {
     border-color: var(--orange-medium);
-    background-color: rgba(255, 208, 0, 0.1); /* FFD000 with alpha */
+    background-color: rgba(255, 208, 0, 0.1);
 }
 
 .quiz-option.correct, .practice-problem-box .correct-answer {
@@ -236,7 +398,7 @@ body {
 }
 
 .highlight-note {
-    background-color: rgba(255, 208, 0, 0.1); /* FFD000 with alpha */
+    background-color: rgba(255, 208, 0, 0.1);
     border-left: 4px solid var(--orange-accent);
     padding: 0.75rem 1rem;
     margin-top: 1rem;
@@ -249,7 +411,7 @@ body {
 }
 
 .goal-box {
-    background-color: rgba(212, 43, 233, 0.1); /* D42BE9 with alpha */
+    background-color: rgba(212, 43, 233, 0.1);
     border: 1px solid var(--purple-light);
     border-radius: 0.5rem;
     padding: 1rem;
@@ -271,4 +433,70 @@ body {
     color: var(--purple-dark);
     font-size: 1.05em;
     margin-bottom: 0.5rem;
+}
+
+/* Additional utility classes for the HTML content that were previously part of Tailwind's CDN */
+.text-center {
+    text-align: center;
+}
+.bg-white {
+    background-color: #fff;
+}
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.text-base {
+    font-size: 1rem;
+}
+.text-lg {
+    font-size: 1.125rem;
+}
+.text-gray-600 {
+    color: #4b5563;
+}
+.mb-4 {
+    margin-bottom: 1rem;
+}
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+.block {
+    display: block;
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.h-16 {
+    height: 4rem;
+}
+.w-auto {
+    width: auto;
+}
+.flex {
+    display: flex;
+}
+.h-screen {
+    height: 100vh;
+}
+.flex-1 {
+    flex: 1 1 0%;
+}
+.p-4 {
+    padding: 1rem;
+}
+.sm\:p-6 {
+    padding: 1.5rem;
+}
+.md\:p-10 {
+    padding: 2.5rem;
+}
+.bg-slate-50 {
+    background-color: #f8fafc;
+}
+.overflow-y-auto {
+    overflow-y: auto;
 }
