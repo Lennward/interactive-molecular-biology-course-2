@@ -1,7 +1,8 @@
+```javascript
 /*
  * Cell & Protein Analytics Interactive Course - Main Script
  *
- * This script handles all the dynamic content loading, interactivity, 
+ * This script handles all the dynamic content loading, interactivity,
  * and calculations for the course. It follows modern JavaScript practices:
  * - Code is wrapped in a DOMContentLoaded listener to ensure the HTML is ready.
  * - All functions and variables are scoped to this listener, avoiding global pollution.
@@ -246,16 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                     btn.classList.remove('correct', 'incorrect');
                                 });
                                 const feedbackEl = parentQuestionDiv.querySelector('.feedback-message');
-                                feedbackEl.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+                                feedbackEl.classList.remove('hidden');
 
                                 if (optButton.textContent === q.answer) {
                                     optButton.classList.add('correct');
                                     feedbackEl.innerHTML = '<strong>Correct!</strong>';
-                                    feedbackEl.classList.add('bg-green-100', 'text-green-700');
+                                    feedbackEl.classList.add('bg-purple-light', 'text-purple-dark');
                                 } else {
                                     optButton.classList.add('incorrect');
                                     feedbackEl.innerHTML = `<strong>Incorrect.</strong> Correct answer: ${q.answer}`;
-                                    feedbackEl.classList.add('bg-red-100', 'text-red-700');
+                                    feedbackEl.classList.add('bg-orange-dark', 'text-white');
                                     parentQuestionDiv.querySelectorAll('.quiz-option').forEach(btn => {
                                         if (btn.textContent === q.answer) btn.classList.add('correct');
                                     });
@@ -363,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>A hemocytometer is a specialized counting chamber slide used to determine the concentration of cells in a liquid sample.</p>
                     <img src="Neubauer-chamber-counting example.jpg" alt="Neubauer chamber counting grid with example cells" class="my-4 rounded-lg shadow-md mx-auto block max-w-full sm:max-w-md w-auto">
                     <p><strong>General Procedure & Calculation:</strong></p>
-                     <ol class="list-decimal list-inside bg-slate-100 p-3 rounded-md shadow-sm">
+                    <ol class="list-decimal list-inside bg-slate-100 p-3 rounded-md shadow-sm">
                         <li>Clean the hemocytometer and coverslip.</li>
                         <li>Mix your cell suspension thoroughly. Often, cells are mixed 1:1 with Trypan Blue stain (e.g., 10 &mu;L cells + 10 &mu;L Trypan Blue). Trypan Blue stains dead cells blue, allowing for viability assessment. This creates a <strong>dilution factor of 2</strong>.</li>
                         <li>Carefully load about 10 &mu;L of the cell suspension/Trypan Blue mixture into one side of the hemocytometer chamber. Avoid overfilling.</li>
@@ -557,7 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><strong>Transient Transfection:</strong> The introduced nucleic acid (e.g., plasmid) enters the cell and is expressed for a limited period (typically 24-96 hours). It is not integrated into the host cell's genome and is eventually lost or diluted out as cells divide. This is useful for rapid gene expression studies.</li>
                         <li><strong>Stable Transfection:</strong> The introduced nucleic acid is integrated into the host cell's genome. This results in long-term, stable expression of the gene, which is passed on to daughter cells during cell division. Creating stable cell lines requires selection methods (e.g., using antibiotic resistance markers).</li>
                     </ul>
-                   
+                    
                     <h4 class="styled-h4">B. Overview of Transfection Methods</h4>
                     <p>There are numerous ways to get nucleic acids into cells, broadly categorized as:</p>
                     <ul class="list-disc list-inside ml-4">
@@ -673,15 +674,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 btn.disabled = true;
                                 btn.classList.remove('correct', 'incorrect');
                             });
-                            methodChoiceFeedback.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+                            methodChoiceFeedback.classList.remove('hidden');
                             if (optText === methodQuizData.answer) {
                                 optButton.classList.add('correct');
                                 methodChoiceFeedback.innerHTML = `<strong>Correct!</strong> ${methodQuizData.feedback_correct}`;
-                                methodChoiceFeedback.classList.add('bg-green-100', 'text-green-700');
+                                methodChoiceFeedback.classList.add('bg-purple-light', 'text-purple-dark');
                             } else {
                                 optButton.classList.add('incorrect');
                                 methodChoiceFeedback.innerHTML = `<strong>Not quite.</strong> ${methodQuizData.feedback_incorrect}`;
-                                methodChoiceFeedback.classList.add('bg-red-100', 'text-red-700');
+                                methodChoiceFeedback.classList.add('bg-orange-dark', 'text-white');
                                 methodChoiceContainer.querySelector('.quiz-option').textContent === methodQuizData.answer
                             }
                             methodChoiceFeedback.classList.remove('hidden');
@@ -700,16 +701,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 btn.disabled = true;
                                 btn.classList.remove('correct', 'incorrect');
                             });
-                            smallVolumeFeedback.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+                            smallVolumeFeedback.classList.remove('hidden');
                             const isCorrect = button.dataset.correct === 'true';
                             if (isCorrect) {
                                 button.classList.add('correct');
                                 smallVolumeFeedback.innerHTML = "<strong>Correct!</strong> 0.586 µL is generally too small to pipette accurately. A good strategy is to prepare a master mix or a working dilution.";
-                                smallVolumeFeedback.classList.add('bg-green-100', 'text-green-700');
+                                smallVolumeFeedback.classList.add('bg-purple-light', 'text-purple-dark');
                             } else {
                                 button.classList.add('incorrect');
                                 smallVolumeFeedback.innerHTML = "<strong>Not quite.</strong> This volume is very prone to error with standard lab equipment.";
-                                smallVolumeFeedback.classList.add('bg-red-100', 'text-red-700');
+                                smallVolumeFeedback.classList.add('bg-orange-dark', 'text-white');
                                 smallVolumeQuizContainer.querySelector('[data-correct="true"]').classList.add('correct');
                             }
                             smallVolumeFeedback.classList.remove('hidden');
@@ -751,15 +752,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             btn.addEventListener('click', () => {
                                 optionButtons.forEach(b => b.disabled = true);
                                 const feedbackEl = qDiv.querySelector('.feedback-message');
-                                feedbackEl.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+                                feedbackEl.classList.remove('hidden');
                                 if(btn.textContent === q.answer) {
                                     btn.classList.add('correct');
                                     feedbackEl.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-green-100', 'text-green-700');
+                                    feedbackEl.classList.add('bg-purple-light', 'text-purple-dark');
                                 } else {
                                     btn.classList.add('incorrect');
                                     feedbackEl.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
-                                    feedbackEl.classList.add('bg-red-100', 'text-red-700');
+                                    feedbackEl.classList.add('bg-orange-dark', 'text-white');
                                     optionButtons.forEach(opt => { if(opt.textContent === q.answer) opt.classList.add('correct'); });
                                 }
                                 feedbackEl.classList.remove('hidden');
@@ -789,10 +790,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const mlVal = parseFloat(mlInput.value);
         if (!isNaN(mlVal)) {
             outputP.innerHTML = `${mlVal} mL = <span class="font-bold">${mlVal * 1000} &mu;L</span>`;
-            outputP.className = 'mt-2 text-sm font-medium text-blue-700';
+            outputP.className = 'mt-2 text-sm font-medium text-purple-medium';
         } else {
             outputP.textContent = 'Please enter a valid number for mL.';
-            outputP.className = 'mt-2 text-sm font-medium text-red-600';
+            outputP.className = 'mt-2 text-sm font-medium text-orange-dark';
         }
     }
 
@@ -822,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultContainer.classList.remove('hidden');
         if (missingCount !== 1) {
             resultP.textContent = "Error: Please provide exactly 3 values.";
-            resultP.className = "font-semibold text-red-600";
+            resultP.className = "font-semibold text-orange-dark";
             stepsP.innerHTML = "";
             return;
         }
@@ -842,7 +843,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } // Add other cases (calculating C1, V2) as needed...
 
         resultP.innerHTML = calculatedValueStr;
-        resultP.className = "font-semibold text-blue-700";
+        resultP.className = "font-semibold text-purple-medium";
         stepsP.innerHTML = calculationStepsStr;
     }
 
@@ -857,13 +858,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isNaN(cellsCounted) || isNaN(dilutionFactor) || cellsCounted < 0 || dilutionFactor <= 0) {
             outputP.textContent = "Please enter valid, positive numbers.";
-            outputP.className = "mt-3 font-semibold text-red-600";
+            outputP.className = "mt-3 font-semibold text-orange-dark";
             return;
         }
         const avgCellsPerSquare = cellsCounted / 4;
         const cellsPerMilliLiter = avgCellsPerSquare * dilutionFactor * 10000;
         outputP.innerHTML = `Calculated Cell Density: <strong>${cellsPerMilliLiter.toExponential(2)} cells/mL</strong>`;
-        outputP.className = "mt-3 font-semibold text-green-700";
+        outputP.className = "mt-3 font-semibold text-purple-medium";
     }
 
     /**
@@ -891,10 +892,10 @@ document.addEventListener('DOMContentLoaded', () => {
         solutionDiv.classList.remove('hidden');
         if (allCorrect) {
             feedbackDiv.textContent = 'Correct!';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-green-600';
+            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-purple-medium';
         } else {
             feedbackDiv.innerHTML = 'One or more answers are incorrect. Please review the solution below.';
-            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-red-600';
+            feedbackDiv.className = 'practice-feedback text-sm mt-2 text-orange-dark';
         }
     }
     
@@ -910,11 +911,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resultContainerEl.classList.remove('hidden');
         if (isNaN(desiredMassUg) || isNaN(stockConcNgUl) || desiredMassUg <= 0 || stockConcNgUl <= 0) {
-            resultEl.innerHTML = "<span class='text-red-600'>Please enter valid positive numbers.</span>";
+            resultEl.innerHTML = "<span class='text-orange-dark'>Please enter valid positive numbers.</span>";
             return;
         }
         const volumeUl = (desiredMassUg * 1000) / stockConcNgUl;
         resultEl.innerHTML = `Required Volume: <strong>${volumeUl.toFixed(3)} &micro;L</strong>`;
+        resultEl.className = "font-semibold text-purple-medium";
     }
 
 
@@ -932,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const link = document.createElement('a');
             link.href = '#';
             link.textContent = module.title;
-            link.className = 'block py-2.5 px-4 rounded sidebar-link text-slate-200 hover:bg-slate-600 hover:text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-150 text-sm';
+            link.className = 'block py-2.5 px-4 rounded sidebar-link text-white hover:bg-purple-medium hover:text-orange-accent focus:outline-none focus:ring-2 focus:ring-orange-accent transition-colors duration-150 text-sm';
             link.dataset.moduleId = module.id;
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -968,16 +970,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.addEventListener('click', () => {
                     optionButtons.forEach(btn => btn.disabled = true);
                     const feedbackDiv = questionDiv.querySelector('.feedback-message');
-                    feedbackDiv.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+                    feedbackDiv.classList.remove('hidden');
                     
                     if (button.textContent === q.answer) {
                         button.classList.add('correct');
                         feedbackDiv.innerHTML = '<strong>Correct!</strong> ';
-                        feedbackDiv.classList.add('bg-green-100', 'text-green-700');
+                        feedbackDiv.classList.add('bg-purple-light', 'text-purple-dark');
                     } else {
                         button.classList.add('incorrect');
                         feedbackDiv.innerHTML = `<strong>Incorrect.</strong> The correct answer is: <span class="font-semibold">${q.answer}</span>. `;
-                        feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+                        feedbackDiv.classList.add('bg-orange-dark', 'text-white');
                         optionButtons.forEach(btn => { if (btn.textContent === q.answer) btn.classList.add('correct'); });
                     }
                     if (q.explanation) {
@@ -1020,9 +1022,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update active link in the sidebar
         document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.classList.remove('active', 'bg-slate-700', 'text-yellow-400');
+            link.classList.remove('active', 'bg-purple-dark', 'text-orange-accent');
             if (link.dataset.moduleId === moduleId) {
-                link.classList.add('active', 'bg-slate-700', 'text-yellow-400');
+                link.classList.add('active', 'bg-purple-dark', 'text-orange-accent');
             }
         });
     }
@@ -1040,3 +1042,4 @@ document.addEventListener('DOMContentLoaded', () => {
     welcomeMessage.style.display = 'block';
 
 });
+```
